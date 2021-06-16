@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head') %>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <form action="/products/<%= product.id %>?_method=PUT" method="POST" class="creation" enctype="multipart/form-data">
+            <label for="" class="edits-2" id="prod-name">Nombre del Producto:</label>
+            <input type="text" name="name" id="name" class="edits" value="<%= product.name %>">
+            <label for="" class="edits-2">Descripción:</label>
+            <textarea name="description" id="decription" cols="30" rows="10" class="edits" value="<%= product.description %>"><%= product.description %></textarea>
+            <label for="" class="edits-2">Imágen:</label>
+            <input type="file" name="image" id="image">
+            <input type="hidden" name="oldImage" id="image" value="<%= product.image %>">
+            <label for="" class="edits-2">Categoría:</label>
+            <select name="category" id="category" class="edits" value="<%= product.category %>">
+                <option value="Auriculares">Auriculares</option>
+                <option value="Teclados">Teclados</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Micrófono">Micrófono</option>
+            </select>
+            <label for="" class="edits-2">Colores:</label>
+            <select name="color" id="color" class="edits" value="<%= product.color %>">
+                <option value="Rojo">Rojo</option>
+                <option value="Verde">Verde</option>
+                <option value="Celeste">Celeste</option>
+                <option value="Negro">Negro</option>
+            </select>
+            <label for="" class="edits-2">Precio:</label>
+            <input type="input" name="price" id="price" class="edits" value="<%= product.price %>">
+
+            <div class="create-button">
+                <button type="submit" id="create-button" class="send-button">Modificar Producto</button>
+            </div> 
+        </form>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

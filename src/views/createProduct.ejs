@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('partials/head') %>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <form action="/products/store" method="POST" class="creation" enctype="multipart/form-data">
+            <label for="" class="edits-2" id="prod-name">Nombre del Producto:</label>
+            <input type="text" name="name" id="name" class="edits">
+            <label for="" class="edits-2">Descripción:</label>
+            <textarea name="description" id="decription" cols="30" rows="10" class="edits"></textarea>
+            <label for="" class="edits-2">Imágen:</label>
+            <input type="file" name="image" id="image">
+            <label for="" class="edits-2">Categoría:</label>
+            <select name="category" id="category" class="edits">
+                <option value="Auriculares">Auriculares</option>
+                <option value="Teclados">Teclados</option>
+                <option value="Mouse">Mouse</option>
+                <option value="Micrófonos">Micrófonos</option>
+            </select>
+            <label for="" class="edits-2">Colores:</label>
+            <select name="color" id="color" class="edits">
+                <option value="Rojo">Rojo</option>
+                <option value="Verde">Verde</option>
+                <option value="Celeste">Celeste</option>
+                <option value="Negro">Negro</option>
+            </select>
+            <label for="" class="edits-2">Precio:</label>
+            <input type="input" name="price" id="price" class="edits">
+            <div class="create-button">
+                <button type="submit" id="create-button" class="send-button">Añadir a Catálogo</button>
+            </div> 
+        </form>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

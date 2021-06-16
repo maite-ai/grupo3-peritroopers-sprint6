@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+<body>
+    <%- include('partials/header') %>
+    <main>
+        <h2>Hi <%= locals.user.name %></h2>
+        <img src="/images/users/<%= locals.user.avatar %>" alt="" height="250px" width="200px">
+        <p><%= locals.user.email %></p>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>
