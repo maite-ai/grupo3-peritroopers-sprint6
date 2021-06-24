@@ -1,80 +1,109 @@
-const jsonDB = require('../model/jsonDatabase');
-const productModel = jsonDB('products');
+const path = require('path');
+const DB = require('../database/models');
+const sequelize = db.sequelize;
+const { Op } = require("sequelize");
+const moment = require('moment');
 
-let productController = {
-    home: (req, res) => {
-        res.redirect('/');
-    },
-    show: (req, res) => {
-        const product = productModel.find(req.params.id);
-        if(product){
-            res.render('productDetail', { product });
-        }else{
-            res.render('error404');
-        }
+module.exports = {
+    add: (req, res) => {
+        Promise
+            .all(Product.findAll())
+            .then((allProducts) => {
+                return res.render(path.resolve(__dirname, '..', 'views', 'createProduct'), {allProducts})
+            })
+            .catch(error => res.send(error))
     },
     create: (req, res) => {
-        res.render('createProduct');
+        DB.Product
+            .create({
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image,
+                stock: req.body.stock,
+                brandId: req.body.brandId,
+                categoryId: req.body.categoryId,
+                colorId: req.body.colorId
+                })
+            .then(product => {
+                return res.status(200).json({
+                    data: product,
+                    status: 200,
+                    created: 'Ok'
+                })
+            })
+            .catch(error => res.send(error))
     },
-
-    // Función que simula el almacenamiento (?)
-    store: (req, res) => {
-        console.log(req.files);
-        // Atrapa los contenidos del formulario... Ponele
-        const product = req.body;
-        // Verificar si viene un archivo, para nombrarlo.
-        product.image = req.file ? req.file.filename : '';
-        console.log(product.image);
-        console.log(product);
-        // Cuidado sólo mando el cuerpo del FORM, el Id me lo asigna el Modelo  
-        productModel.create(product);
-            res.redirect('/');
-    },
-
     edit: (req, res) => {
-        let product = productModel.find(req.params.id);
-        console.log(product);
-        if(product){
-            res.render("editProduct", {product});
-        }else {
-            res.render('error404');
-        }        
+        Promise
+        .all(Product.findByPk(req.params.id))
+        .then((product) => {
+            return res.render(path.resolve(__dirname, '..', 'views',  'editProduct'), {product})})
+        .catch(error => res.send(error))
     },
-
-    // Función que realiza cambios en el producto seleccionado. Continuará...
     update: (req, res) => {
-        let product = req.body;
-        product.id = req.params.id;
-            product.image = req.file ? req.file.filename : req.body.oldImage;    
-            if(req.body.image === undefined) {
-                product.image = product.oldImage;
-            }
-
-            console.log(product.image);
-            console.log(product);
-
-        delete product.oldImage;
-        productModel.update(product);
-        res.redirect('/');
+        DB.Product
+            .update({
+                name: req.body.name,
+                description: req.body.description,
+                price: req.body.price,
+                image: req.body.image,
+                stock: req.body.stock,
+                brandId: req.body.brandId,
+                categoryId: req.body.categoryId,
+                colorId: req.body.colorId
+                }, {
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(product => {
+                return res.status(200).json({
+                    data: product,
+                    status: 200,
+                    updated: 'Ok'
+                })
+            })
+            .catch(error => res.send(error))
     },
-
-    destroy: (req, res) => {
-        productModel.delete(req.params.id);
-        res.redirect('/');
+    delete: (req, res) => {
+        DB.Product
+            .destroy({
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then((response) => {
+                return res.redirect('/')
+            })
+            .catch(error => res.send(error))
     },
-
-    productCart: (req, res) => { 
-        res.render("productCart");
+    list: (req, res) => {
+        DB.Product
+            .findAll()
+            .then(products => {
+                res.render('index.ejs', {products})
+            })
     },
-
-    productDetail: (req, res) => {
-        res.render("productDetail");
+    detail: (req, res) => {
+        DB.Product
+            .findByPk(req.params.id)
+            .then(product => {
+                res.render('productDetail.ejs', {product})
+            })
     },
-
     search: (req, res) => {
-        let dataABuscar = req.query;
-        res.send(dataABuscar);
+        DB.Product
+            .findAll({
+                where: {
+                    name: { [Op.like] : '%' + req.query.keyword + '%' }
+                }
+            })
+            .then(products => {
+                if(products.length > 0) {
+                    return res.status(200).json(products)
+                }
+                return res.status(200).json('El producto que busca no ha sido encontrado')
+            })
     }
 }
-
-module.exports = productController
