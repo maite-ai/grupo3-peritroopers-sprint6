@@ -1,4 +1,4 @@
-modules.exports = (sequelize, dataTypes) => {
+module.exports = (sequelize, dataTypes) => {
   let alias = 'Shipping';
 
   let cols = {

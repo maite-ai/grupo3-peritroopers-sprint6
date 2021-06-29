@@ -2,7 +2,7 @@
   "name": "sprint6",
   "version": "1.0.5",
   "description": "El sitio está dedicado a la venta de insumos informáticos, especialmente **accesorios y periféricos**.\r Ofrece las mejores marcas de los mismos.",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

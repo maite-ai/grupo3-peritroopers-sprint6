@@ -1,4 +1,4 @@
-const User=require('../model/userModel')
+const User=require('../database/models/User')
 function userLoggedMiddleware(req,res,next){
     res.locals.islogged=false
     let userEmailInCookie=req.cookies.userEmail

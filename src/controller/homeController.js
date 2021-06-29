@@ -1,5 +1,5 @@
-const jsonDB = require('../model/jsonDatabase');
-const productModel = jsonDB('products');
+const jsonDB = require('../database/models');
+const productModel = jsonDB('Product');
 
 let homeController = {
     show: (req, res) => {
