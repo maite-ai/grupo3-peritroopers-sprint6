@@ -4,21 +4,22 @@
 
 ## - IMPORTANTE: Consigna... Actualizar el archivo retro.md con las principales conclusiones de la retro del sprint anterior. -
 
-Realizamos una retrospectiva de cómo funcionamos como equipo durante el Sprint 4, centrandonos en crecer y mejorar en cara a los próximos desafios, y lo realizamos mediante la dinámica de la **estrella de mar**. Las conclusiones a las que llegamos fueron las siguientes:
+Realizamos una retrospectiva de cómo funcionamos como equipo durante el Sprint 5, centrandonos en crecer y mejorar en cara a los próximos desafios, y lo realizamos mediante la dinámica de la **estrella de mar**. Las conclusiones a las que llegamos fueron las siguientes:
 
 ##  - Comenzar a hacer -
 
-Creemos que a esta altura del proyecto ya hemos podido descubrir y experimentar cuales son las prácticas grupales e individuales que nos resultan más eficaces para avanzar en nuestras tareas. De todas formas, siempre estamos buscando nuevas herramientas y modalidades de trabajo para incorporar.
+Tal como mencionamos en las retrospectivas realizadas anteriormente, creemos que a esta altura del proyecto ya nos encontramos cómodos con las metodologías utilizadas, trabajando en equipo, avanzando en conjunto, siempre buscando mejoras u oportunidades que podamos incluir en el recorrido, y elegimos seguir trabajando de esta manera.
 
 ## - Más de -
 
-Pair-programming a fin de trabajar en simultáneo, aportando distintas opiniones y conocimientos a la hora de progresar en el proyecto. Asimismo, seguimos debatiendo lo que creemos que hacemos bien como equipo, y por lo tanto nos parece importante mantener nuestras reuniones, discusiones e intercambio de ideas, puestas en común, brainstorming, toma de decisiones en conjunto.
+Trabajo en conjunto, reuniones en equipo donde hay espacio para el crecimiento tanto individual como grupal, escuchando todas las opiniones y puntos de vista. Seguir buscando nuevas herramientas para lograr una mejora continua.
 
 ## - Continuar haciendo -
 
-En línea con el punto anterior, queremos continuar haciendo todo lo que hemos mencionado, aprendiendo de nuestros errores, conversando, exponiendo ideas. Alcanzamos un nivel de confianza entre nosotros, muy importante para el equipo que aprovechamos para avanzar en la planificación y realización de tareas.
+Como ya mencionamos anteriormente,  creemos que estamos funcionando muy bien como equipo, con lo cual siempre nos proponemos seguir trabajando así.  
+Valoramos incluso que alternamos el cronograma de reuniones para analizar cuando eran mas productivos los encuentros, y gracias a autoconocimiento del grupo podemos determinar en que momentos es preferible avanzar con el desarrollo del sprint y cuando es mejor hacer una pausa para retomar el encuentro con mejores ideas, más energía o con nuevas soluciones.
   
-Tal como mencionamos en el retro anterior, en cuanto a **“Dejar de hacer“ y “Menos de”**, concluimos que como equipo logramos dejar de reproducir todo aquello que nos propusimos evitar, y no repetir. Seguimos avanzando tomando conciencia de ello, y dialogando mucho entre nosotros seguimos creciendo y consolidándonos a la par de nuestro proyecto.
+En cuanto a **“Dejar de hacer“ y “Menos de”**, estamos continuamente en diálogo, donde hay lugar para inquietudes y consultas, tanto personales como del equipo, por lo que intentamos no repetir situaciones que sucedieron en el pasado porque hoy tenemos las herramientas para evitar que eso ocurra.
   
   ***   
 
