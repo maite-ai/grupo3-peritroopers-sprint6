@@ -1,14 +1,23 @@
-const jsonDB = require('../model/jsonDatabase');
-const productModel = jsonDB('products');
+const path = require('path');
+const DB = require('../database/models');
+const sequelize = DB.sequelize;
+const { Op } = require("sequelize");
 
 let homeController = {
-    show: (req, res) => {
-        const products = productModel.all();
-        res.render('index', { products });
+    show: async (req, res) =>{
+        try{ 
+            let products = await DB.Product.findAll();
+
+            console.log(products);
+            return res.render('index', {products});
+        }
+        catch(error){
+            console.log(error);
+        }
     },
 
     faq: (req, res) => {
-        res.render("faq");
+                res.render('faq')
     }
 }
 
