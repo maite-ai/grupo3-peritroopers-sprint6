@@ -3,9 +3,19 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'VoucherType';
 
-  let cols = {
+  class Type extends Model {
+    
+    static associate(models) {
+      // hasMany
+      VoucherType.hasMany(models.Purchase, {
+          foreignKey: 'voucherTypeId',
+          as: "purchases"
+        })
+    }
+  };
+
+  VoucherType.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -14,23 +24,11 @@ module.exports = (sequelize, dataTypes) => {
     name: {
       type: dataTypes.STRING(45),
       allowNull: false
-    }
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const VoucherType = sequelize.define(alias, cols, config);
-  
-  VoucherType.associate = function(models) {
-      // hasMany
-      VoucherType.hasMany(models.Purchase, {
-          foreignKey: 'voucherTypeId',
-          as: "purchases"
-        })
-  }
+    }}, {
+      sequelize,
+      modelName: 'Type',
+    });
 
   return VoucherType
 
-}
+};
