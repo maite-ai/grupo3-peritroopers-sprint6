@@ -3,9 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'Shipping';
+  class Shipping extends Model {
+    static associate = function(models) {
+      // hasMany
+      Shipping.hasMany(models.Purchase, {
+          foreignKey: 'shippingId',
+          as: "purchases"
+        });
+    }
+  }
 
-  let cols = {
+  Shipping.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -39,21 +47,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.INTEGER(11),
       allowNull: false
     }
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const Shipping = sequelize.define(alias, cols, config);
-  
-  Shipping.associate = function(models) {
-      // hasMany
-      Shipping.hasMany(models.Purchase, {
-          foreignKey: 'shippingId',
-          as: "purchases"
-        })
-  }
+  }, {
+    sequelize,
+    modelName: 'Shipping'
+  });
 
   return Shipping
 

@@ -3,9 +3,34 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'Purchase';
+  class Purchase extends Model {
+    static associate = function(models) {
+      // hasMany
+      Purchase.hasMany(models.Order, {
+          foreignKey: 'purchaseId',
+          as: "orders"
+        })
+      // belongsTo
+      Purchase.belongsTo(models.VoucherType, {
+        foreignKey: 'voucherTypeId',
+        as: "voucherTypes"
+      });
+      Purchase.belongsTo(models.Status, {
+        foreignKey: 'statusId',
+        as: "status"
+      });
+      Purchase.belongsTo(models.User, {
+        foreignKey: 'userId',
+        as: "users"
+      });
+      Purchase.belongsTo(models.Shipping, {
+        foreignKey: 'shippingId',
+        as: "shippings"
+      });
+    }
+  }
 
-  let cols = {
+  Purchase.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -27,38 +52,10 @@ module.exports = (sequelize, dataTypes) => {
     statusId: dataTypes.INTEGER.UNSIGNED,
     userId: dataTypes.INTEGER.UNSIGNED,
     voucherTypeId: dataTypes.INTEGER.UNSIGNED,
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const Purchase = sequelize.define(alias, cols, config);
-
-  Purchase.associate = function(models) {
-    // hasMany
-    Purchase.hasMany(models.Order, {
-        foreignKey: 'purchaseId',
-        as: "orders"
-      })
-    // belongsTo
-    Purchase.belongsTo(models.VoucherType, {
-      foreignKey: 'voucherTypeId',
-      as: "voucherTypes"
-    });
-    Purchase.belongsTo(models.Status, {
-      foreignKey: 'statusId',
-      as: "status"
-    });
-    Purchase.belongsTo(models.User, {
-      foreignKey: 'userId',
-      as: "users"
-    });
-    Purchase.belongsTo(models.Shipping, {
-      foreignKey: 'shippingId',
-      as: "shippings"
-    });
-  }
+  }, {
+    sequelize,
+    modelName: 'Purchase'
+  }) ;
 
   return Purchase
 
