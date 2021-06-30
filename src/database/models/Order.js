@@ -1,7 +1,24 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-    let alias = 'Order';
+    class Order extends Model {
+      static associate(models) {
+        // belongsTo
+        Order.belongsTo(models.Product, {
+            foreignKey: 'productId',
+            as: 'products'
+        });
+        // belongsTo
+        Order.belongsTo(models.Purchase, {
+            foreignKey: 'purchaseId',
+            as: 'purchases'
+        });
+      }
+    }
   
-    let cols = {
+    Order.init({
       id: {
         type: dataTypes.INTEGER.UNSIGNED,
         primaryKey: true,
@@ -21,26 +38,10 @@ module.exports = (sequelize, dataTypes) => {
       },
       productId: dataTypes.INTEGER.UNSIGNED,
       purchaseId: dataTypes.INTEGER.UNSIGNED,
-    };
-  
-    let config = {
-      timestamps: false
-    };
-  
-    const Order = sequelize.define(alias, cols, config);
-  
-    Order.associate = function(models) {
-        // belongsTo
-        Order.belongsTo(models.Product, {
-            foreignKey: 'productId',
-            as: 'products'
-        });
-        // belongsTo
-        Order.belongsTo(models.Purchase, {
-            foreignKey: 'purchaseId',
-            as: 'purchases'
-        });
-    }
+    }, {
+      sequelize,
+      modelName: 'Order'
+    });
 
     return Order
 

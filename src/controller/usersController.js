@@ -1,8 +1,7 @@
 const path = require('path');
 const DB = require('../database/models');
-const sequelize = db.sequelize;
+const sequelize = DB.sequelize;
 const { Op } = require("sequelize");
-const moment = require('moment');
 
 module.exports = {
     detail: (req, res) => {
