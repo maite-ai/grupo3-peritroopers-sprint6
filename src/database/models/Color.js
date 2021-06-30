@@ -3,9 +3,16 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'Color';
-
-  let cols = {
+  class Color extends Model {
+    static associate(models) {
+      Color.hasMany(models.Product, {
+        foreignKey: 'colorId',
+        as: 'products'
+      }); 
+    }
+  }
+  
+  Color.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -15,20 +22,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(45),
       allowNull: false
     }
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const Color = sequelize.define(alias, cols, config);
-
-  Color.associate = function(models) {
-    Color.hasMany(models.Product, {
-      foreignKey: 'colorId',
-      as: 'products'
-    }); 
-  }
+  }, {
+    sequelize,
+    modelName: 'Color'
+  });
 
   return Color
 
