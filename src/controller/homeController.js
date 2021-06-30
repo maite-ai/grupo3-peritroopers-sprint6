@@ -4,20 +4,18 @@ const sequelize = DB.sequelize;
 const { Op } = require("sequelize");
 
 let homeController = {
-    show: async (req, res) =>{
-        try{ 
-            let products = await DB.Product.findAll();
-
-            console.log(products);
-            return res.render('index', {products});
+    show: async (req, res) => {
+        try{
+            const products = DB.Product.findAll();
+            res.render('index', { products });
         }
-        catch(error){
-            console.log(error);
+        catch(error) {
+            console.log(error)
         }
     },
 
     faq: (req, res) => {
-                res.render('faq')
+        res.render("faq");
     }
 }
 
