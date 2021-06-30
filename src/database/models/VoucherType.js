@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
 
-  class Type extends Model {
+  class VoucherType extends Model {
     
     static associate(models) {
       // hasMany
