@@ -3,9 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'Category';
-
-  let cols = {
+  class Category extends Model {
+    static associate(models) {
+      // hasMany
+      Category.hasMany(models.Product, {
+        foreignKey: 'categoryId',
+        as: 'products',
+      });
+    }
+  }
+  
+  Category.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -15,21 +23,10 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(45),
       allowNull: false
     }
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const Category = sequelize.define(alias, cols, config);
-
-  Category.associate = function(models) {
-    // hasMany
-    Category.hasMany(models.Product, {
-      foreignKey: 'categoryId',
-      as: 'products',
-    });
-  }
+  }, {
+    sequelize,
+    modelName: 'Category'
+  });
 
   return Category
 
