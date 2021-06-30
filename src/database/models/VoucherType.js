@@ -26,7 +26,7 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     }}, {
       sequelize,
-      modelName: 'Type',
+      modelName: 'VoucherType',
     });
 
   return VoucherType
