@@ -3,9 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, dataTypes) => {
-  let alias = 'Status';
+  class Status extends Model {
+    static associate = function(models) {
+      // hasMany
+      Status.hasMany(models.Purchase, {
+          foreignKey: 'statusId',
+          as: "purchases"
+        });
+    }
+  }
 
-  let cols = {
+  Status.init({
     id: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -15,22 +23,11 @@ module.exports = (sequelize, dataTypes) => {
       type: dataTypes.STRING(45),
       allowNull: false
     }
-  };
-
-  let config = {
-    timestamps: false
-  };
-
-  const Status = sequelize.define(alias, cols, config);
+  },{
+    sequelize,
+    modelName: 'Status'
+  });
   
-  Status.associate = function(models) {
-      // hasMany
-      Status.hasMany(models.Purchase, {
-          foreignKey: 'statusId',
-          as: "purchases"
-        })
-  }
-
   return Status
 
 }
