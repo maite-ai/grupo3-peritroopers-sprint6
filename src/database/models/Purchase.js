@@ -12,8 +12,8 @@ module.exports = (sequelize, dataTypes) => {
         })
       // belongsTo
       Purchase.belongsTo(models.VoucherType, {
+        as: "voucherTypes",
         foreignKey: 'voucherTypeId',
-        as: "voucherTypes"
       });
       Purchase.belongsTo(models.Status, {
         foreignKey: 'statusId',

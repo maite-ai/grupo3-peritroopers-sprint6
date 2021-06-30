@@ -9,11 +9,11 @@ module.exports = (sequelize, dataTypes) => {
     static associate(models) {
       // hasMany
       VoucherType.hasMany(models.Purchase, {
+          as: "purchases",
           foreignKey: 'voucherTypeId',
-          as: "purchases"
         })
     }
-  };
+  }
 
   VoucherType.init({
     id: {
