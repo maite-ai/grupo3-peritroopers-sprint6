@@ -6,8 +6,8 @@ const { Op } = require("sequelize");
 let homeController = {
     show: async (req, res) => {
         try{
-            const products = DB.Product.findAll();
-            res.send( products );
+            const products = await DB.Product.findAll();
+            return res.render('index', { products })
         }
         catch(error) {
             console.log(error)
