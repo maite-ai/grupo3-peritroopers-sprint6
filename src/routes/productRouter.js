@@ -5,8 +5,8 @@ const router = express.Router();
 const productController = require('../controller/productController');
 
 router.get('/', productController.list)
+router.get('/create', productController.create)
 router.get('/:id', productController.detail)
-//router.get('/create', productController.add)
 router.post('/create', productController.create)
 router.get('/edit/:id', productController.edit)
 router.put('/edit/:id', productController.update)

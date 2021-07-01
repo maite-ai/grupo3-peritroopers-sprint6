@@ -10,29 +10,35 @@ let productController = {
     list: async (req, res) => {
         try {
             let products = await DB.Product.findAll({
-                include: [{association: "brands"}, {association: "categories"}, {association: "colors"}]
+                include: ["brands", "categories", "colors"]
             });
             products = JSON.parse(JSON.stringify(products))
             return res.render('catalogue', { products:products })
         }
-        catch(error) {
-            res.render('error404')
+        catch(error){
+            res.send(error);
         }
     },
     detail: (req, res) => {
-        const product = DB.Product.findByPk(req.params.id);
         try{
+            const product = DB.Product.findByPk(req.params.id);
             res.render('productDetail', { product });
         }
         catch(error){
-            res.render('error404');
+            res.send(error);
         }
     },
     create: async (req, res) => {
-        let productBrand = await DB.Brand.findAll()
-        let productCategory = await DB.Category.findAll()
-        let productColor = await DB.Color.findAll()
-        return res.render('createProduct', {productBrand, productCategory, productColor})
+        try{
+            console.log('llegué al create');
+            let productBrand = await DB.Brand.findAll()
+            let productCategory = await DB.Category.findAll()
+            let productColor = await DB.Color.findAll()
+            return res.render('createProduct', {productBrand, productCategory, productColor})
+        }
+        catch(error){
+            res.send(error);
+        }
     },
 
     // Función que simula el almacenamiento (?)
