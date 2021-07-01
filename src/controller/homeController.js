@@ -7,7 +7,7 @@ let homeController = {
     show: async (req, res) => {
         try{
             const products = DB.Product.findAll();
-            res.render('index', { products });
+            res.send( products );
         }
         catch(error) {
             console.log(error)

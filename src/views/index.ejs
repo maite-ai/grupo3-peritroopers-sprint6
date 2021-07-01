@@ -15,8 +15,8 @@
                     <h2>Novedades</h2>
                     <article class="news">
                         <div class="detail">
-                            <% if(locals.products) {%>
-                                <% products.forEach(product=> {%>
+                            <% if(locals && locals.products) {%>
+                                <% products.forEach(product => {%>
                                     <%- include('partials/product', {product}) %>
                             <%})%>
                             <%}else{%>
