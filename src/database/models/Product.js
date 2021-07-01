@@ -31,7 +31,7 @@ module.exports = (sequelize, dataTypes) => {
   }
   
   Product.init({
-    id: {
+    idproduct: {
       type: dataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       autoIncrement: true,

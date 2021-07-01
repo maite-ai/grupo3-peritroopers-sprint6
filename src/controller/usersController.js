@@ -1,6 +1,10 @@
 const { validationResult } = require('express-validator')
 const bcryptjs=require('bcryptjs')
-const User=require('../database/models/User')
+const path = require('path');
+const { User } = require('../database/models');
+const sequelize = User.sequelize;
+const { Op } = require("sequelize");
+
 let userController = {
     register: (req, res) => {
         res.render('register');
@@ -13,7 +17,11 @@ let userController = {
                 oldData:req.body
             })
         }
-        let userInDB=User.findByField('email',req.body.email)
+        let userInDB=User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
         if(userInDB){
             return res.render('register', {
                 errors:{
@@ -36,7 +44,11 @@ let userController = {
         res.render('login')
     },
     loginProcess:(req,res)=>{
-        let userToLog=User.findByField('email',req.body.email)
+        let userToLog=User.findOne({
+            where: {
+                email: req.body.email
+            }
+        })
         if(userToLog){
             let passValidation=bcryptjs.compareSync(req.body.password,userToLog.password)
             if(passValidation){
