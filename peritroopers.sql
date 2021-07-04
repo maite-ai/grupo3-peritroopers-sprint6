@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-07-2021 a las 03:04:27
+-- Tiempo de generación: 01-07-2021 a las 02:55:05
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.2.34
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `brands` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idbrand` int(10) UNSIGNED NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,7 +39,7 @@ CREATE TABLE `brands` (
 --
 
 CREATE TABLE `categories` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idcategory` int(10) UNSIGNED NOT NULL,
   `name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -50,7 +50,7 @@ CREATE TABLE `categories` (
 --
 
 CREATE TABLE `colors` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idcolors` int(10) UNSIGNED NOT NULL,
   `name` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -61,12 +61,12 @@ CREATE TABLE `colors` (
 --
 
 CREATE TABLE `orders` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `idorders` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `subtotal` decimal(11,2) NOT NULL,
   `discount` int(11) DEFAULT NULL,
-  `productId` int(10) UNSIGNED NOT NULL,
-  `purchaseId` int(10) UNSIGNED NOT NULL
+  `product` int(10) UNSIGNED NOT NULL,
+  `purchase` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -76,15 +76,15 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `products` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idproduct` int(10) UNSIGNED NOT NULL,
   `name` varchar(120) NOT NULL,
   `description` varchar(180) NOT NULL,
   `price` decimal(8,2) NOT NULL,
   `image` blob NOT NULL,
-  `categoryId` int(10) UNSIGNED NOT NULL,
-  `colorId` int(10) UNSIGNED NOT NULL,
-  `stockId` int(11) NOT NULL,
-  `brandId` int(10) UNSIGNED NOT NULL
+  `category` int(10) UNSIGNED NOT NULL,
+  `color` int(10) UNSIGNED NOT NULL,
+  `stock` int(11) NOT NULL,
+  `brand` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -94,14 +94,14 @@ CREATE TABLE `products` (
 --
 
 CREATE TABLE `purchases` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `voucherTypeId` int(10) UNSIGNED NOT NULL,
+  `idpurchases` int(10) UNSIGNED NOT NULL,
+  `voucherType` int(10) UNSIGNED NOT NULL,
   `voucherNumber` bigint(15) UNSIGNED NOT NULL,
   `date` date NOT NULL,
   `total` decimal(12,2) UNSIGNED NOT NULL,
-  `statusId` int(10) UNSIGNED NOT NULL,
-  `userId` int(10) UNSIGNED NOT NULL,
-  `shippingId` int(10) UNSIGNED NOT NULL
+  `status` int(10) UNSIGNED NOT NULL,
+  `user` int(10) UNSIGNED NOT NULL,
+  `shipping` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -111,7 +111,7 @@ CREATE TABLE `purchases` (
 --
 
 CREATE TABLE `shippings` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idshippings` int(10) UNSIGNED NOT NULL,
   `street` varchar(45) NOT NULL,
   `number` int(11) NOT NULL,
   `floor` int(11) DEFAULT NULL,
@@ -128,7 +128,7 @@ CREATE TABLE `shippings` (
 --
 
 CREATE TABLE `status` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idstatus` int(10) UNSIGNED NOT NULL,
   `name` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -139,7 +139,7 @@ CREATE TABLE `status` (
 --
 
 CREATE TABLE `usercategories` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `iduserCategories` int(10) UNSIGNED NOT NULL,
   `name` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -150,14 +150,14 @@ CREATE TABLE `usercategories` (
 --
 
 CREATE TABLE `users` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idusers` int(10) UNSIGNED NOT NULL,
   `name` varchar(25) NOT NULL,
   `lastname` varchar(25) NOT NULL,
   `birthdate` date NOT NULL,
   `address` varchar(120) NOT NULL,
   `email` varchar(95) NOT NULL,
   `password` varchar(16) NOT NULL,
-  `userCategoryId` int(10) UNSIGNED NOT NULL
+  `userCategory` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -167,7 +167,7 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `vouchertype` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `idvoucherType` int(10) UNSIGNED NOT NULL,
   `name` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -179,31 +179,31 @@ CREATE TABLE `vouchertype` (
 -- Indices de la tabla `brands`
 --
 ALTER TABLE `brands`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD PRIMARY KEY (`idbrand`),
+  ADD UNIQUE KEY `idbrand_UNIQUE` (`idbrand`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
 -- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD PRIMARY KEY (`idcategory`),
+  ADD UNIQUE KEY `idcategory_UNIQUE` (`idcategory`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
 -- Indices de la tabla `colors`
 --
 ALTER TABLE `colors`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD PRIMARY KEY (`idcolors`),
+  ADD UNIQUE KEY `idcolors_UNIQUE` (`idcolors`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`);
 
 --
 -- Indices de la tabla `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`idorders`),
   ADD KEY `productId_idx` (`product`),
   ADD KEY `purchaseId_idx` (`purchase`);
 
@@ -211,8 +211,8 @@ ALTER TABLE `orders`
 -- Indices de la tabla `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD PRIMARY KEY (`idproduct`),
+  ADD UNIQUE KEY `idproduct_UNIQUE` (`idproduct`),
   ADD KEY `colorId_idx` (`color`),
   ADD KEY `categoryId_idx` (`category`),
   ADD KEY `brandId_idx` (`brand`);
@@ -221,7 +221,7 @@ ALTER TABLE `products`
 -- Indices de la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`idpurchases`),
   ADD KEY `voucherTypeId_idx` (`voucherType`),
   ADD KEY `statusId_idx` (`status`),
   ADD KEY `userId_idx` (`user`),
@@ -231,37 +231,37 @@ ALTER TABLE `purchases`
 -- Indices de la tabla `shippings`
 --
 ALTER TABLE `shippings`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+  ADD PRIMARY KEY (`idshippings`),
+  ADD UNIQUE KEY `idshippings_UNIQUE` (`idshippings`);
 
 --
 -- Indices de la tabla `status`
 --
 ALTER TABLE `status`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`idstatus`);
 
 --
 -- Indices de la tabla `usercategories`
 --
 ALTER TABLE `usercategories`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`iduserCategories`),
   ADD UNIQUE KEY `name_UNIQUE` (`name`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+  ADD UNIQUE KEY `iduserCategories_UNIQUE` (`iduserCategories`);
 
 --
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD PRIMARY KEY (`idusers`),
+  ADD UNIQUE KEY `idusers_UNIQUE` (`idusers`),
   ADD KEY `userCategoryId_idx` (`userCategory`);
 
 --
 -- Indices de la tabla `vouchertype`
 --
 ALTER TABLE `vouchertype`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+  ADD PRIMARY KEY (`idvoucherType`),
+  ADD UNIQUE KEY `idinvoiceType_UNIQUE` (`idvoucherType`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -271,49 +271,49 @@ ALTER TABLE `vouchertype`
 -- AUTO_INCREMENT de la tabla `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idbrand` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idcategory` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `colors`
 --
 ALTER TABLE `colors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idcolors` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idproduct` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `shippings`
 --
 ALTER TABLE `shippings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idshippings` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usercategories`
 --
 ALTER TABLE `usercategories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `iduserCategories` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idusers` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `vouchertype`
 --
 ALTER TABLE `vouchertype`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `idvoucherType` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -323,31 +323,31 @@ ALTER TABLE `vouchertype`
 -- Filtros para la tabla `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `productId` FOREIGN KEY (`product`) REFERENCES `products` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `purchaseId` FOREIGN KEY (`purchase`) REFERENCES `purchases` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `productId` FOREIGN KEY (`product`) REFERENCES `products` (`idproduct`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchaseId` FOREIGN KEY (`purchase`) REFERENCES `purchases` (`idpurchases`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `brandId` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `categoryId` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `colorId` FOREIGN KEY (`color`) REFERENCES `colors` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `brandId` FOREIGN KEY (`brand`) REFERENCES `brands` (`idbrand`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `categoryId` FOREIGN KEY (`category`) REFERENCES `categories` (`idcategory`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `colorId` FOREIGN KEY (`color`) REFERENCES `colors` (`idcolors`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  ADD CONSTRAINT `shippingId` FOREIGN KEY (`shipping`) REFERENCES `shippings` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `statusId` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `userId` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `voucherTypeId` FOREIGN KEY (`voucherType`) REFERENCES `vouchertype` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `shippingId` FOREIGN KEY (`shipping`) REFERENCES `shippings` (`idshippings`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `statusId` FOREIGN KEY (`status`) REFERENCES `status` (`idstatus`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `userId` FOREIGN KEY (`user`) REFERENCES `users` (`idusers`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `voucherTypeId` FOREIGN KEY (`voucherType`) REFERENCES `vouchertype` (`idvoucherType`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `userCategoryId` FOREIGN KEY (`userCategory`) REFERENCES `usercategories` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `userCategoryId` FOREIGN KEY (`userCategory`) REFERENCES `usercategories` (`iduserCategories`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
