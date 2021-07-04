@@ -1,234 +1,355 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 5.0.3
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 01-07-2021 a las 03:04:27
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.34
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema peritroopers
--- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema peritroopers
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `peritroopers` DEFAULT CHARACTER SET utf8 ;
-USE `peritroopers` ;
-
--- -----------------------------------------------------
--- Table `peritroopers`.`brands`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`brands` (
-  `idbrand` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idbrand`),
-  UNIQUE INDEX `idbrand_UNIQUE` (`idbrand` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `peritroopers`.`categories`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`categories` (
-  `idcategory` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`idcategory`),
-  UNIQUE INDEX `idcategory_UNIQUE` (`idcategory` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
+--
+-- Base de datos: `peritroopers`
+--
 
--- -----------------------------------------------------
--- Table `peritroopers`.`colors`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`colors` (
-  `idcolors` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`idcolors`),
-  UNIQUE INDEX `idcolors_UNIQUE` (`idcolors` ASC) VISIBLE,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `brands`
+--
 
--- -----------------------------------------------------
--- Table `peritroopers`.`products`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`products` (
-  `idproduct` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(120) NOT NULL,
-  `description` VARCHAR(180) NOT NULL,
-  `price` DECIMAL(8,2) NOT NULL,
-  `image` BLOB NOT NULL,
-  `category` INT(10) UNSIGNED NOT NULL,
-  `color` INT(10) UNSIGNED NOT NULL,
-  `stock` INT(11) NOT NULL,
-  `brand` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idproduct`),
-  UNIQUE INDEX `idproduct_UNIQUE` (`idproduct` ASC) VISIBLE,
-  INDEX `colorId_idx` (`color` ASC) VISIBLE,
-  INDEX `categoryId_idx` (`category` ASC) VISIBLE,
-  INDEX `brandId_idx` (`brand` ASC) VISIBLE,
-  CONSTRAINT `brandId`
-    FOREIGN KEY (`brand`)
-    REFERENCES `peritroopers`.`brands` (`idbrand`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `categoryId`
-    FOREIGN KEY (`category`)
-    REFERENCES `peritroopers`.`categories` (`idcategory`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `colorId`
-    FOREIGN KEY (`color`)
-    REFERENCES `peritroopers`.`colors` (`idcolors`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `brands` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `peritroopers`.`shippings`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`shippings` (
-  `idshippings` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `street` VARCHAR(45) NOT NULL,
-  `number` INT(11) NOT NULL,
-  `floor` INT(11) NULL DEFAULT NULL,
-  `apartment` VARCHAR(5) NULL DEFAULT NULL,
-  `city` VARCHAR(45) NOT NULL,
-  `province` VARCHAR(45) NOT NULL,
-  `postalCode` INT(11) NOT NULL,
-  PRIMARY KEY (`idshippings`),
-  UNIQUE INDEX `idshippings_UNIQUE` (`idshippings` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Estructura de tabla para la tabla `categories`
+--
 
+CREATE TABLE `categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `peritroopers`.`status`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`status` (
-  `idstatus` INT(10) UNSIGNED NOT NULL,
-  `name` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`idstatus`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `colors`
+--
 
--- -----------------------------------------------------
--- Table `peritroopers`.`usercategories`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`usercategories` (
-  `iduserCategories` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`iduserCategories`),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
-  UNIQUE INDEX `iduserCategories_UNIQUE` (`iduserCategories` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `colors` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `peritroopers`.`users`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`users` (
-  `idusers` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(25) NOT NULL,
-  `lastname` VARCHAR(25) NOT NULL,
-  `birthdate` DATE NOT NULL,
-  `address` VARCHAR(120) NOT NULL,
-  `email` VARCHAR(95) NOT NULL,
-  `password` VARCHAR(16) NOT NULL,
-  `userCategory` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idusers`),
-  UNIQUE INDEX `idusers_UNIQUE` (`idusers` ASC) VISIBLE,
-  INDEX `userCategoryId_idx` (`userCategory` ASC) VISIBLE,
-  CONSTRAINT `userCategoryId`
-    FOREIGN KEY (`userCategory`)
-    REFERENCES `peritroopers`.`usercategories` (`iduserCategories`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Estructura de tabla para la tabla `orders`
+--
 
+CREATE TABLE `orders` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `subtotal` decimal(11,2) NOT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `productId` int(10) UNSIGNED NOT NULL,
+  `purchaseId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `peritroopers`.`vouchertype`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`vouchertype` (
-  `idvoucherType` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`idvoucherType`),
-  UNIQUE INDEX `idinvoiceType_UNIQUE` (`idvoucherType` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `products`
+--
 
--- -----------------------------------------------------
--- Table `peritroopers`.`purchases`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`purchases` (
-  `idpurchases` INT(10) UNSIGNED NOT NULL,
-  `voucherType` INT(10) UNSIGNED NOT NULL,
-  `voucherNumber` BIGINT(15) UNSIGNED NOT NULL,
-  `date` DATE NOT NULL,
-  `total` DECIMAL(12,2) UNSIGNED NOT NULL,
-  `status` INT(10) UNSIGNED NOT NULL,
-  `user` INT(10) UNSIGNED NOT NULL,
-  `shipping` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idpurchases`),
-  INDEX `voucherTypeId_idx` (`voucherType` ASC) VISIBLE,
-  INDEX `statusId_idx` (`status` ASC) VISIBLE,
-  INDEX `userId_idx` (`user` ASC) VISIBLE,
-  INDEX `shippingId_idx` (`shipping` ASC) VISIBLE,
-  CONSTRAINT `shippingId`
-    FOREIGN KEY (`shipping`)
-    REFERENCES `peritroopers`.`shippings` (`idshippings`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `statusId`
-    FOREIGN KEY (`status`)
-    REFERENCES `peritroopers`.`status` (`idstatus`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `userId`
-    FOREIGN KEY (`user`)
-    REFERENCES `peritroopers`.`users` (`idusers`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `voucherTypeId`
-    FOREIGN KEY (`voucherType`)
-    REFERENCES `peritroopers`.`vouchertype` (`idvoucherType`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `products` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `description` varchar(180) NOT NULL,
+  `price` decimal(8,2) NOT NULL,
+  `image` blob NOT NULL,
+  `categoryId` int(10) UNSIGNED NOT NULL,
+  `colorId` int(10) UNSIGNED NOT NULL,
+  `stockId` int(11) NOT NULL,
+  `brandId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `peritroopers`.`orders`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `peritroopers`.`orders` (
-  `idorders` INT(11) NOT NULL,
-  `quantity` INT(11) NOT NULL,
-  `subtotal` DECIMAL(11,2) NOT NULL,
-  `discount` INT(11) NULL DEFAULT NULL,
-  `product` INT(10) UNSIGNED NOT NULL,
-  `purchase` INT(10) UNSIGNED NOT NULL,
-  PRIMARY KEY (`idorders`),
-  INDEX `productId_idx` (`product` ASC) VISIBLE,
-  INDEX `purchaseId_idx` (`purchase` ASC) VISIBLE,
-  CONSTRAINT `productId`
-    FOREIGN KEY (`product`)
-    REFERENCES `peritroopers`.`products` (`idproduct`)
-    ON UPDATE CASCADE,
-  CONSTRAINT `purchaseId`
-    FOREIGN KEY (`purchase`)
-    REFERENCES `peritroopers`.`purchases` (`idpurchases`)
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Estructura de tabla para la tabla `purchases`
+--
 
+CREATE TABLE `purchases` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `voucherTypeId` int(10) UNSIGNED NOT NULL,
+  `voucherNumber` bigint(15) UNSIGNED NOT NULL,
+  `date` date NOT NULL,
+  `total` decimal(12,2) UNSIGNED NOT NULL,
+  `statusId` int(10) UNSIGNED NOT NULL,
+  `userId` int(10) UNSIGNED NOT NULL,
+  `shippingId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `shippings`
+--
+
+CREATE TABLE `shippings` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `street` varchar(45) NOT NULL,
+  `number` int(11) NOT NULL,
+  `floor` int(11) DEFAULT NULL,
+  `apartment` varchar(5) DEFAULT NULL,
+  `city` varchar(45) NOT NULL,
+  `province` varchar(45) NOT NULL,
+  `postalCode` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `status`
+--
+
+CREATE TABLE `status` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usercategories`
+--
+
+CREATE TABLE `usercategories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `birthdate` date NOT NULL,
+  `address` varchar(120) NOT NULL,
+  `email` varchar(95) NOT NULL,
+  `password` varchar(16) NOT NULL,
+  `userCategoryId` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vouchertype`
+--
+
+CREATE TABLE `vouchertype` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD UNIQUE KEY `name_UNIQUE` (`name`);
+
+--
+-- Indices de la tabla `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD UNIQUE KEY `name_UNIQUE` (`name`);
+
+--
+-- Indices de la tabla `colors`
+--
+ALTER TABLE `colors`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD UNIQUE KEY `name_UNIQUE` (`name`);
+
+--
+-- Indices de la tabla `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `productId_idx` (`product`),
+  ADD KEY `purchaseId_idx` (`purchase`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `colorId_idx` (`color`),
+  ADD KEY `categoryId_idx` (`category`),
+  ADD KEY `brandId_idx` (`brand`);
+
+--
+-- Indices de la tabla `purchases`
+--
+ALTER TABLE `purchases`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `voucherTypeId_idx` (`voucherType`),
+  ADD KEY `statusId_idx` (`status`),
+  ADD KEY `userId_idx` (`user`),
+  ADD KEY `shippingId_idx` (`shipping`);
+
+--
+-- Indices de la tabla `shippings`
+--
+ALTER TABLE `shippings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+--
+-- Indices de la tabla `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `usercategories`
+--
+ALTER TABLE `usercategories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name_UNIQUE` (`name`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `userCategoryId_idx` (`userCategory`);
+
+--
+-- Indices de la tabla `vouchertype`
+--
+ALTER TABLE `vouchertype`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `colors`
+--
+ALTER TABLE `colors`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `shippings`
+--
+ALTER TABLE `shippings`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usercategories`
+--
+ALTER TABLE `usercategories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `vouchertype`
+--
+ALTER TABLE `vouchertype`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `productId` FOREIGN KEY (`product`) REFERENCES `products` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchaseId` FOREIGN KEY (`purchase`) REFERENCES `purchases` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `products`
+--
+ALTER TABLE `products`
+  ADD CONSTRAINT `brandId` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `categoryId` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `colorId` FOREIGN KEY (`color`) REFERENCES `colors` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `purchases`
+--
+ALTER TABLE `purchases`
+  ADD CONSTRAINT `shippingId` FOREIGN KEY (`shipping`) REFERENCES `shippings` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `statusId` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `userId` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `voucherTypeId` FOREIGN KEY (`voucherType`) REFERENCES `vouchertype` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `userCategoryId` FOREIGN KEY (`userCategory`) REFERENCES `usercategories` (`id`) ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
