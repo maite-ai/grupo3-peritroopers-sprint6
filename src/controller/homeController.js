@@ -7,10 +7,10 @@ let homeController = {
     show: async (req, res) => {
         try{
             const products = await DB.Product.findAll();
-            return res.render('index', { products })
+            return res.render('index', { products });
         }
         catch(error) {
-            console.log(error)
+            console.log(error);
         }
     },
 

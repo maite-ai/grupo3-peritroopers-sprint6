@@ -37,7 +37,8 @@ let productController = {
             return res.render('createProduct', {productBrand, productCategory, productColor})
         }
         catch(error){
-            res.send(error);
+            res.render('error404')
+            console.log(error);
         }
     },
 
@@ -66,13 +67,15 @@ let productController = {
             res.redirect('/');
     },
 
-    edit: (req, res) => {
-        let product = productModel.find(req.params.id);
-        console.log(product);
-        if(product){
+    edit: async (req, res) => {
+        try{
+            let product = await productModel.findByPk(req.params.id);
+            console.log(product);
             res.render("editProduct", {product});
-        }else {
+        }
+        catch(error) {
             res.render('error404');
+            console.log(error);
         }        
     },
 
@@ -89,12 +92,29 @@ let productController = {
             console.log(product);
 
         delete product.oldImage;
-        productModel.update(product);
+        productModel.update({
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            image: req.body.image,
+            stock: req.body.stock,
+            brandId: req.body.brandId,
+            categoryId: req.body.categoryId,
+            colorId: req.body.colorId
+        }, {
+            where: {
+                id: req.params.id
+            }
+        });
         res.redirect('/');
     },
 
     destroy: (req, res) => {
-        productModel.delete(req.params.id);
+        productModel.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
         res.redirect('/');
     },
 
@@ -107,8 +127,18 @@ let productController = {
     },
 
     search: (req, res) => {
-        let dataABuscar = req.query;
-        res.send(dataABuscar);
+        let dataABuscar = productModel
+            .findAll({
+                where: {
+                    name: { [Op.like]: '%' + req.query.keyword + '%' }
+                }
+            })
+            .then(products => {
+                if(products.length > 0) {
+                    res.render('catalogue', { dataABuscar });
+                }
+                return res.status(200).json('No se han encontrado resultados para su búsqueda')
+            })
     }
 }
 
