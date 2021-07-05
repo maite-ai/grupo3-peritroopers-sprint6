@@ -6,8 +6,8 @@
         <%- include('partials/header') %>
             <main class="main-register">
                 <section class="register">
-                    <h2>REGISTRO</h2>
-                    <form class="register-form" action="/users/register" method="POST" enctype="multipart/form-data">
+                    <h2>Editar Usuario</h2>
+                    <form class="register-form" action="/users/<%= user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
                         <div class="regform-outofthebox">
                             <div class="contenedor-regform name">
                                 <label class="labelName" id="labelName">Nombre</label>
@@ -39,21 +39,6 @@
                                     </div>
                                 <% } %>
                             </div>
-                            <div class="contenedor-regform age">
-                                <label class="labelAge" id="labelAge">Fecha de Nacimiento</label>
-                                <input
-                                    type="date"
-                                    class="inputAge <%= locals.errors && errors.birthDate?'is-invalid':null %>"
-                                    name="birthDate"
-                                    placeholder="Fecha de Nacimiento"
-                                    value="<%= locals.oldData?oldData.birthDate:null %>"
-                                >
-                                <% if(locals.errors && errors.birthDate) { %>
-                                    <div>
-                                        <%= errors.birthDate.msg %>
-                                    </div>
-                                <% } %>
-                            </div>
                             <div class="contenedor-regform address">
                                 <label class="labelAddress" id="labelAddress">Dirección</label>
                                 <input
@@ -69,23 +54,8 @@
                                     </div>
                                 <% } %>
                             </div>
-                            <div class="contenedor-regform enail">
-                                <label class="labelEmail" id="labelEmail">Email</label>
-                                <input
-                                    type="email"
-                                    class="inputEmail <%= locals.errors && errors.email?'is-invalid':null %>"
-                                    name="email"
-                                    placeholder="example@gmail.com"
-                                    value="<%= locals.oldData?oldData.email:null %>"
-                                >
-                                <% if(locals.errors && errors.email){ %>
-                                    <div>
-                                        <%= errors.email.msg %>
-                                    </div>
-                                <% } %>
-                            </div>
                             <div class="contenedor-regform password">
-                                <label class="labelPassword" id="labelPassword">Contraseña</label>
+                                <label class="labelPassword" id="labelPassword">Nueva Contraseña</label>
                                 <input type="password" class="inputPassword" name="password" placeholder="**********">
                                 <% if(locals.errors && errors.password){ %>
                                     <div class="text-danger">
@@ -94,7 +64,7 @@
                                 <% } %>
                             </div>
                             <div class="contenedor-regform">
-                                <label class="labelRePassword" id="labelRePassword">Repita su contraseña</label>
+                                <label class="labelRePassword" id="labelRePassword">Repita su Contraseña</label>
                                 <input type="password" class="inputRePassword" placeholder="**********" name="confirmPassword">
                                 <% if(locals.errors && errors.confirmPassword){ %>
                                     <div class="text-danger">
@@ -105,6 +75,7 @@
                             <div class="contenedor-regform">
                                 <label class="labelAvatar">Imágen de Perfil</label>
                                 <input type="file" class="inputAvatar" name="avatar">
+                                <input type="hidden" name="oldImage" id="image" value="<%= user.image %>">
                                 <% if(locals.errors && errors.avatar){ %>
                                     <div>
                                         <%= errors.avatar.msg %>
@@ -116,10 +87,7 @@
 
                         <div class="reg-button">
                             <div class="send-box">
-                                <button type="submit" class="send-button">Enviar</button>
-                            </div>
-                            <div class="got-account-box">
-                                <a href="/login" class="link-got-account">¿Ya tenés cuenta? Iniciá sesión</a>
+                                <button type="submit" class="send-button">Actualizar Datos</button>
                             </div>
                         </div>
                     </form>

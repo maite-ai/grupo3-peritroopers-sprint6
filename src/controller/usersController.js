@@ -32,13 +32,52 @@ let userController = {
                 oldData:req.body
             })
         }
-        let userToCreate={
-            ...req.body,
+        User.create({
+            name: req.body.name,
+            lastName: req.body.lastName,
+            birthDate: req.body.birthDate,
+            address: req.body.address,
+            email: req.body.email,
             password:bcryptjs.hashSync(req.body.password,10),
             avatar:req.file.filename
-        }
-        let userCreated=User.create(userToCreate)
+        })
         return res.redirect('/users/login')
+    },
+    edit: async (req, res) => {
+        try{
+            let user = await User.findByPk(req.params.id);
+            console.log(user);
+            res.render("userEdit", {user});
+        }
+        catch(error) {
+            res.render('error404');
+            console.log(error);
+        }        
+    },
+    update: (req, res) => {
+        let user = req.body;
+        user.id = req.params.id;
+            user.image = req.file ? req.file.filename : req.body.oldImage;    
+            if(req.body.image === undefined) {
+                user.image = user.oldImage;
+            }
+
+            console.log(user.image);
+            console.log(user);
+
+        delete user.oldImage;
+        User.update({
+            name: req.body.name,
+            lastName: req.body.lastName,
+            address: req.body.address,
+            password:bcryptjs.hashSync(req.body.password,10),
+            avatar:req.file.filename
+        }, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.redirect('/profile');
     },
     login: (req, res) => {
         res.render('login')
@@ -72,7 +111,7 @@ let userController = {
         })
     },
     profile:(req,res)=>{
-        //console.log(req.cookies.userEmail);
+        console.log(req.cookies.userEmail);
         return res.render('profile',{
             user:req.session.userLogged
         })
