@@ -23,6 +23,10 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+CREATE DATABASE IF NOT EXISTS `peritroopers`;
+
+USE `peritroopers`;
+
 --
 -- Estructura de tabla para la tabla `brands`
 --
@@ -83,7 +87,7 @@ CREATE TABLE `products` (
   `image` blob NOT NULL,
   `categoryId` int(10) UNSIGNED NOT NULL,
   `colorId` int(10) UNSIGNED NOT NULL,
-  `stockId` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
   `brandId` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -204,8 +208,9 @@ ALTER TABLE `colors`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `productId_idx` (`product`),
-  ADD KEY `purchaseId_idx` (`purchase`);
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `productId_idx` (`productId`),
+  ADD KEY `purchaseId_idx` (`purchaseId`);
 
 --
 -- Indices de la tabla `products`
@@ -213,19 +218,20 @@ ALTER TABLE `orders`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `colorId_idx` (`color`),
-  ADD KEY `categoryId_idx` (`category`),
-  ADD KEY `brandId_idx` (`brand`);
+  ADD KEY `colorId_idx` (`colorId`),
+  ADD KEY `categoryId_idx` (`categoryId`),
+  ADD KEY `brandId_idx` (`brandId`);
 
 --
 -- Indices de la tabla `purchases`
 --
 ALTER TABLE `purchases`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `voucherTypeId_idx` (`voucherType`),
-  ADD KEY `statusId_idx` (`status`),
-  ADD KEY `userId_idx` (`user`),
-  ADD KEY `shippingId_idx` (`shipping`);
+  ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD KEY `voucherTypeId_idx` (`voucherTypeId`),
+  ADD KEY `statusId_idx` (`statusId`),
+  ADD KEY `userId_idx` (`userId`),
+  ADD KEY `shippingId_idx` (`shippingId`);
 
 --
 -- Indices de la tabla `shippings`
@@ -238,7 +244,8 @@ ALTER TABLE `shippings`
 -- Indices de la tabla `status`
 --
 ALTER TABLE `status`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_UNIQUE` (`id`);
 
 --
 -- Indices de la tabla `usercategories`
@@ -254,7 +261,7 @@ ALTER TABLE `usercategories`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
-  ADD KEY `userCategoryId_idx` (`userCategory`);
+  ADD KEY `userCategoryId_idx` (`userCategoryId`);
 
 --
 -- Indices de la tabla `vouchertype`
@@ -323,31 +330,31 @@ ALTER TABLE `vouchertype`
 -- Filtros para la tabla `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `productId` FOREIGN KEY (`product`) REFERENCES `products` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `purchaseId` FOREIGN KEY (`purchase`) REFERENCES `purchases` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `productId` FOREIGN KEY (`productId`) REFERENCES `products` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchaseId` FOREIGN KEY (`purchaseId`) REFERENCES `purchases` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `brandId` FOREIGN KEY (`brand`) REFERENCES `brands` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `categoryId` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `colorId` FOREIGN KEY (`color`) REFERENCES `colors` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `brandId` FOREIGN KEY (`brandId`) REFERENCES `brands` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `categoryId` FOREIGN KEY (`categoryId`) REFERENCES `categories` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `colorId` FOREIGN KEY (`colorId`) REFERENCES `colors` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  ADD CONSTRAINT `shippingId` FOREIGN KEY (`shipping`) REFERENCES `shippings` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `statusId` FOREIGN KEY (`status`) REFERENCES `status` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `userId` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `voucherTypeId` FOREIGN KEY (`voucherType`) REFERENCES `vouchertype` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `shippingId` FOREIGN KEY (`shippingId`) REFERENCES `shippings` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `statusId` FOREIGN KEY (`statusId`) REFERENCES `status` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `userId` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `voucherTypeId` FOREIGN KEY (`voucherTypeId`) REFERENCES `vouchertype` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `userCategoryId` FOREIGN KEY (`userCategory`) REFERENCES `usercategories` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `userCategoryId` FOREIGN KEY (`userCategoryId`) REFERENCES `usercategories` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
