@@ -47,7 +47,11 @@ User.init({
     allowNull: false
   },
   password: {
-    type: dataTypes.STRING(16),
+    type: dataTypes.STRING(255),
+    allowNull: false
+  },
+  avatar: {
+    type: dataTypes.STRING(150),
     allowNull: false
   },
   userCategoryId: dataTypes.INTEGER.UNSIGNED,

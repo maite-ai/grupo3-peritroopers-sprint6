@@ -39,12 +39,13 @@ let userController = {
                 address: req.body.address,
                 email: req.body.email,
                 password:bcryptjs.hashSync(req.body.password,10),
+                avatar: req.file.filename,
                 userCategoryId: 2
             }
-            console.log(`USUARIO POR CREARSE: ${userToCreate}`);
+            console.log(`USUARIO POR CREARSE:`, {userToCreate});
 
             let userCreated = await db.User.create(userToCreate);
-            console.log(`USUARIO CREADO ${userCreated}`)
+            console.log(`USUARIO CREADO:`, {userCreated})
 
             return res.redirect('/users/login');
         }      

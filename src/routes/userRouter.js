@@ -10,7 +10,7 @@ router.get('/register', guestMiddleware, userController.register);
 router.post('/register', uploadFile.single('avatar'), validations, userController.processRegister);
 router.get('/login', guestMiddleware, userController.login);
 router.post('/login', userController.loginProcess);
-router.get('/profile/:id', authMiddleware, userController.profile);
+router.get('/profile', authMiddleware, userController.profile);
 router.get('/edit/:id', userController.edit);
 router.put('/edit/:id', userController.update);
 router.get('/logout', userController.logout);

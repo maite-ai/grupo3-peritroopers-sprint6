@@ -1,12 +1,10 @@
 const path = require('path')
 const multer = require('multer')
 const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'./src/public/images/users')
-    },
-    filename:(req,file,cb)=>{
-        let fileName=`${Date.now()}_img${path.extname(file.originalname)}`
-        cb(null,fileName)
+    destination: path.resolve(__dirname, '../public/images/avatars'),
+	filename: (req, file, cb) => {
+		let fileName = `${Date.now()}_img${path.extname(file.originalname)}`;
+		cb(null, fileName);
     }
 })
 const uploadFile=multer({ storage })
