@@ -4,9 +4,9 @@
 <body>
     <%- include('partials/header') %>
     <main>
-        <h2>Hi <%= locals.user.name %></h2>
-        <img src="/images/users/<%= locals.user.avatar %>" alt="" height="250px" width="200px">
-        <p><%= locals.user.email %></p>
+        <h2>Hi <%= user.name %></h2>
+        <img src="/../images/avatars/<%= user.avatar %>" alt="" height="250px" width="200px">
+        <p><%= user.email %></p>
     </main>
     <%- include('partials/footer') %>
 </body>

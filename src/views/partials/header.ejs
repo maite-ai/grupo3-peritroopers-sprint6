@@ -47,7 +47,7 @@
                 <% if(locals.isLogged){ %>
                     <li><a href="/users/profile">My profile</a></li>
                     <li><a href="/users/logout">Logout</a></li>
-                    <li><a href="#"><img src="/images/users/<%= locals.userLogged.avatar %>" alt="" class="user-avatar"><!--Hi <%= locals.userLogged.name%>--></a></li>
+                    <li><a href="#"><img src="/../images/avatars/<%= userLogged.avatar %>" alt="" class="user-avatar"><!--Hi <%= locals.userLogged.name%>--></a></li>
                     <!--<li class="secciones"><a href="/products/create">Crear Producto</a></li>-->
                     <% }else{ %>
                         <li class="secciones"><a href="/users/register">Creá tu cuenta</a></li>
