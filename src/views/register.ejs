@@ -73,16 +73,14 @@
                                 <label class="labelEmail" id="labelEmail">Email</label>
                                 <input
                                     type="email"
-                                    class="inputEmail <%= locals.errors && errors.email?'is-invalid':null %>"
+                                    class="inputEmail"
                                     name="email"
                                     placeholder="example@gmail.com"
-                                    value="<%= locals.oldData?oldData.email:null %>"
-                                >
-                                <% if(locals.errors && errors.email){ %>
-                                    <div>
-                                        <%= errors.email.msg %>
-                                    </div>
-                                <% } %>
+                                    value="<%= locals.oldData ? oldData.email : null %>">
+                                    <% if(locals.errors && errors.email){ %>
+                                        <div class="errorMsg"><%= errors.email.msg %></div>
+                                    <% } %>
+                                
                             </div>
                             <div class="contenedor-regform password">
                                 <label class="labelPassword" id="labelPassword">Contraseña</label>

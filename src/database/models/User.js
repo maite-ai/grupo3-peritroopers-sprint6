@@ -42,10 +42,6 @@ User.init({
     type: dataTypes.STRING(120),
     allowNull: false
   },
-  avatar: {
-    type: dataTypes.BLOB('medium'),
-    allowNull: false
-  },
   email: {
     type: dataTypes.STRING(95),
     allowNull: false
