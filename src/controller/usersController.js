@@ -107,7 +107,7 @@ let userController = {
             return res.render('login', {
                 errors: {
                     email: {
-                        msg: 'El email no se encuentra registrado'
+                        msg: 'Credenciales inválidas'
                     }
                 }
             });  
@@ -116,7 +116,7 @@ let userController = {
         return res.render('login', {
             errors: {
                 email: {
-                    msg: 'El email no figura en nuestra base de datos'
+                    msg: 'No estás registrado'
                 }
             }
         });
