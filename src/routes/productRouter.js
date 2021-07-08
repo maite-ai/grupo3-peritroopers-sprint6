@@ -16,13 +16,14 @@ router.get('/:id', productController.detail)
 
 router.get('/search', productController.search)
 
-router.get('/edit/:id', authMiddleware, productController.edit)
+router.get('/:id/edit', authMiddleware, productController.edit)
 
 router.post('/store', uploadFile.single('image'), productController.store)
 
 router.put('/:id', uploadFile.single('image'), productController.update)
 
-router.delete('/delete/:id', authMiddleware, productController.destroy)
+router.get('/delete/:id', productController.delete);
+router.delete('/delete/:id', productController.destroy);
 
 
 module.exports = router;

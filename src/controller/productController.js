@@ -62,7 +62,7 @@ let productController = {
 
     edit: async (req, res) => {
         try{
-            let product = await DB.findByPk(req.params.id);
+            let product = await DB.Product.findByPk(req.params.id);
             console.log(product);
             res.render("editProduct", {product});
         }
@@ -73,8 +73,8 @@ let productController = {
     },
 
     // Función que realiza cambios en el producto seleccionado. Continuará...
-    update: (req, res) => {
-        let product = req.body;
+    update: async (req, res) => {
+        let product = await req.body;
         product.id = req.params.id;
             product.image = req.file ? req.file.filename : req.body.oldImage;    
             if(req.body.image === undefined) {
@@ -85,7 +85,7 @@ let productController = {
             console.log(product);
 
         delete product.oldImage;
-        DB.update({
+        await DB.Product.update({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
@@ -102,14 +102,23 @@ let productController = {
         res.redirect('/');
     },
 
-    destroy: (req, res) => {
-        DB.destroy({
-            where: {
-                id: req.params.id
-            }
-        });
-        res.redirect('/');
+    destroy: async (req, res) => {
+        console.log("entre al destroy")
+        let productId = req.params.id;
+        await DB.Image.destroy({ where: { id: productId }, force: true });
+        await DB.Product.destroy({ where: { id: productId }, force: true });
+            
+        return res.redirect('/');
     },
+
+    delete: (req, res) => {
+        let productId = req.params.id;
+        Product.findByPk(productId).then((products) => {
+          return res.render("delete", { products }).catch((error) => {
+            console.log(error);
+          });
+        });
+      },
 
     productCart: (req, res) => { 
         res.render("productCart");
