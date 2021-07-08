@@ -19,10 +19,11 @@ let productController = {
             res.send(error);
         }
     },
-    detail: (req, res) => {
+    detail: async (req, res) => {
         try{
-            const product = DB.Product.findByPk(req.params.id);
-            res.render('productDetail', { product });
+            const product = await DB.Product.findByPk(req.params.id);
+            console.log(product)
+            return res.render('productDetail', { product });
         }
         catch(error){
             res.send(error);
@@ -44,32 +45,24 @@ let productController = {
 
     // Función que simula el almacenamiento (?)
     store: async (req, res) => {
+        console.log('llegue al store')
+        console.log(req.body)
         let productCreated = await DB.Product.create({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
-            image: req.body.image,
+            image: req.file.filename,
             stock: req.body.stock,
             brandId: req.body.brandId,
             categoryId: req.body.categoryId,
             colorId: req.body.colorId
-
         })
-        console.log(req.files);
-        // Atrapa los contenidos del formulario... Ponele
-        const product = req.body;
-        // Verificar si viene un archivo, para nombrarlo.
-        product.image = req.file ? req.file.filename : '';
-        console.log(product.image);
-        console.log(product);
-        // Cuidado sólo mando el cuerpo del FORM, el Id me lo asigna el Modelo  
-        productModel.create(product);
-            res.redirect('/');
+        res.redirect('/');
     },
 
     edit: async (req, res) => {
         try{
-            let product = await productModel.findByPk(req.params.id);
+            let product = await DB.findByPk(req.params.id);
             console.log(product);
             res.render("editProduct", {product});
         }
@@ -92,7 +85,7 @@ let productController = {
             console.log(product);
 
         delete product.oldImage;
-        productModel.update({
+        DB.update({
             name: req.body.name,
             description: req.body.description,
             price: req.body.price,
@@ -110,7 +103,7 @@ let productController = {
     },
 
     destroy: (req, res) => {
-        productModel.destroy({
+        DB.destroy({
             where: {
                 id: req.params.id
             }
@@ -127,7 +120,7 @@ let productController = {
     },
 
     search: (req, res) => {
-        let dataABuscar = productModel
+        let dataABuscar = DB
             .findAll({
                 where: {
                     name: { [Op.like]: '%' + req.query.keyword + '%' }

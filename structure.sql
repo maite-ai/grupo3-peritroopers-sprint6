@@ -84,10 +84,10 @@ CREATE TABLE `products` (
   `name` varchar(120) NOT NULL,
   `description` varchar(180) NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `image` blob NOT NULL,
+  `image` varchar(150) NOT NULL,
   `categoryId` int(10) UNSIGNED NOT NULL,
   `colorId` int(10) UNSIGNED NOT NULL,
-  `stock` int(11) NOT NULL,
+  `stock` int(11),
   `brandId` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
