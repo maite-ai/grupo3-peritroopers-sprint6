@@ -105,10 +105,10 @@ let productController = {
     destroy: async (req, res) => {
         console.log("entre al destroy")
         let productId = req.params.id;
-        await DB.Image.destroy({ where: { id: productId }, force: true });
         await DB.Product.destroy({ where: { id: productId }, force: true });
             
-        return res.redirect('/');
+        return res.redirect('/')
+        .catch(error => res.send(error))
     },
 
     delete: (req, res) => {
