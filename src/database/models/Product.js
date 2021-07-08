@@ -49,12 +49,12 @@ module.exports = (sequelize, dataTypes) => {
       allowNull: false
     },
     image: {
-      type: dataTypes.BLOB('medium'),
+      type: dataTypes.STRING(150),
       allowNull: false
     },
     stock: {
       type: dataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: true
     },
     brandId: dataTypes.INTEGER.UNSIGNED,
     categoryId: dataTypes.INTEGER.UNSIGNED,
