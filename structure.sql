@@ -160,7 +160,7 @@ CREATE TABLE `users` (
   `birthdate` date NOT NULL,
   `address` varchar(120) NOT NULL,
   `email` varchar(95) NOT NULL,
-  `password` varchar(16) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `userCategoryId` int(10) UNSIGNED NOT NULL,
   `avatar` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -361,3 +361,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+© 2021 GitHub, Inc.
